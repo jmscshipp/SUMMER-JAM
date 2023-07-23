@@ -25,7 +25,7 @@ public class FirefliesObject : MonoBehaviour
 			counter += Time.deltaTime;
 			GetBezier(out posFromBezier, checkpoints, counter);
 
-			if (Vector3Equal(transform.position, checkpoints[3]))
+			if (Vector3Equal(transform.localPosition, checkpoints[3]))
 			{
 				// arrived at destination
 				GetComponent<SphereCollider>().enabled = true;
@@ -33,7 +33,7 @@ public class FirefliesObject : MonoBehaviour
 				flying = false;
 			}
 			else
-				transform.position = posFromBezier;
+				transform.localPosition = posFromBezier;
 		}
 	}
 
@@ -53,7 +53,7 @@ public class FirefliesObject : MonoBehaviour
         flying = true;
 		counter = 0.0f;
 
-		GeneratePoints(transform.position, newTarget.targetPos);
+		GeneratePoints(transform.localPosition, newTarget.targetPos);
 
 	}
 
@@ -81,6 +81,8 @@ public class FirefliesObject : MonoBehaviour
 		one.x = 0f;
 		checkpoints[1] = one;
 
+		Debug.Log("second checkpoint: " + checkpoints[1]);
+
 		// creating second checkpoint
 		Vector3 two = end - (end - start) / 4.0f; // last quarter
 		negative = Random.Range(0f, 1f);
@@ -89,6 +91,9 @@ public class FirefliesObject : MonoBehaviour
 		two += randOffset * Vector3.Distance(end, two);
 		two.x = 0f;
 		checkpoints[2] = two;
+
+		Debug.Log("third checkpoint: " + checkpoints[2]);
+
 	}
 
 	void GetBezier(out Vector3 pos, Vector3[] points, float time)
