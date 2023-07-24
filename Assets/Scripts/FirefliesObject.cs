@@ -55,14 +55,9 @@ public class FirefliesObject : MonoBehaviour
         {
 			transform.parent = null;
 			GeneratePoints(transform.position, newTarget.targetPos);
-
 		}
 		else
-        {
 			GeneratePoints(transform.localPosition, newTarget.targetPos);
-
-        }
-
 	}
 
 	public void ReturnToPlayer()
@@ -86,10 +81,7 @@ public class FirefliesObject : MonoBehaviour
 		negative = (negative > 0.5f) ? 1f : -1f;
 		randOffset = new Vector3(0f, Random.Range(0.5f, 1f) * negative);
 		one += randOffset * Vector3.Distance(one, start);
-		one.x = 0f;
 		checkpoints[1] = one;
-
-		
 
 		// creating second checkpoint
 		Vector3 two = end - (end - start) / 4.0f; // last quarter
@@ -97,12 +89,7 @@ public class FirefliesObject : MonoBehaviour
 		negative = (negative > 0.5f) ? 1f : -1f;
 		randOffset = new Vector3(0f, Random.Range(0.5f, 1f) * negative);
 		two += randOffset * Vector3.Distance(end, two);
-		two.x = 0f;
 		checkpoints[2] = two;
-
-		for (int i = 0; i < checkpoints.Length; i++)
-			Instantiate(markerPrefab, checkpoints[i], Quaternion.identity);
-
 	}
 
 	void GetBezier(out Vector3 pos, Vector3[] points, float time)
