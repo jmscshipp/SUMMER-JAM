@@ -39,6 +39,8 @@ public class FirefliesObject : MonoBehaviour
 
 	public void GoToTarget(FireflyTarget newTarget, bool setParentToNull = true)
     {
+		GetComponent<ObjectSelection>().Deselect();
+
 		if (currentTarget != null)
         {
 			currentTarget.onFireflyDeactivation.Invoke();
