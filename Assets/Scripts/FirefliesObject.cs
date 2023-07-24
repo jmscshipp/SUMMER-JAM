@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FirefliesObject : MonoBehaviour
 {
+	public GameObject markerPrefab;
     private FireflyTarget currentTarget;
 	private FireflyController controller;
 	private bool flying = false;
@@ -42,12 +43,7 @@ public class FirefliesObject : MonoBehaviour
 		GetComponent<ObjectSelection>().Deselect();
 
 		if (currentTarget != null)
-        {
 			currentTarget.onFireflyDeactivation.Invoke();
-        }
-		 
-		if (setParentToNull)
-			transform.parent = null;
 
 		GetComponent<SphereCollider>().enabled = false;
 
@@ -55,7 +51,17 @@ public class FirefliesObject : MonoBehaviour
         flying = true;
 		counter = 0.0f;
 
-		GeneratePoints(transform.localPosition, newTarget.targetPos);
+		if (setParentToNull)
+        {
+			transform.parent = null;
+			GeneratePoints(transform.position, newTarget.targetPos);
+
+		}
+		else
+        {
+			GeneratePoints(transform.localPosition, newTarget.targetPos);
+
+        }
 
 	}
 
@@ -83,7 +89,7 @@ public class FirefliesObject : MonoBehaviour
 		one.x = 0f;
 		checkpoints[1] = one;
 
-		Debug.Log("second checkpoint: " + checkpoints[1]);
+		
 
 		// creating second checkpoint
 		Vector3 two = end - (end - start) / 4.0f; // last quarter
@@ -94,7 +100,8 @@ public class FirefliesObject : MonoBehaviour
 		two.x = 0f;
 		checkpoints[2] = two;
 
-		Debug.Log("third checkpoint: " + checkpoints[2]);
+		for (int i = 0; i < checkpoints.Length; i++)
+			Instantiate(markerPrefab, checkpoints[i], Quaternion.identity);
 
 	}
 
