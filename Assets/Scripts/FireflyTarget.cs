@@ -8,12 +8,14 @@ public class FireflyTarget : MonoBehaviour
     public UnityEvent onFireflyActivation;
     public UnityEvent onFireflyDeactivation;
     private FireflyController controller;
+    [SerializeField]
     public Vector3 targetPos; // if we don't want firefly to go straight to center of the object, specify a location
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GameObject.FindGameObjectWithTag("Player").GetComponent<FireflyController>();
+        targetPos = transform.position;
     }
 
     public void SetThisAsTarget()
